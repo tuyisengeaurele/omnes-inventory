@@ -6,6 +6,17 @@
   color-scheme: dark;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* keep anchored sections clear of the fixed nav */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 body {
   @apply bg-ink text-bone font-body antialiased;
 }

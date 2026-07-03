@@ -231,7 +231,7 @@ export default function FlowBoard({ started }: { started: boolean }) {
           </div>
           <div className="rule border-t px-4 py-2">
             <span className="font-mono text-[11px] text-bone/40">
-              every movement above is an immutable ledger entry
+              every movement above lands in the ledger and stays there
             </span>
           </div>
         </div>
