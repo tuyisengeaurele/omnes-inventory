@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-ink text-bone font-body antialiased;
+}
+
+::selection {
+  @apply bg-teal/30;
+}
+
+:focus-visible {
+  @apply outline-none ring-2 ring-teal ring-offset-2 ring-offset-ink;
+}
+
+@layer utilities {
+  /* hairline borders used all over the manifest look */
+  .rule {
+    @apply border-bone/10;
+  }
+  .microlabel {
+    @apply font-mono text-[11px] uppercase tracking-[0.2em] text-bone/40;
+  }
+}
