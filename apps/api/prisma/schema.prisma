@@ -1,0 +1,45 @@
+// Phase 0 skeleton: tenancy and users only.
+// Catalog, stock and the rest arrive with their own phases.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+model Tenant {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  tenantId     String
+  email        String
+  passwordHash String
+  fullName     String
+  role         Role     @default(STAFF)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  // email is unique per tenant, not globally, two businesses can share a contractor
+  @@unique([tenantId, email])
+  @@index([tenantId])
+}
