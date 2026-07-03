@@ -1,25 +1,66 @@
 import Reveal from './Reveal';
+import { DrawnIcon, type IconName } from './icons';
 
-const FEATURES = [
+const FEATURES: { icon: IconName; name: string; line: string }[] = [
   {
-    n: '01',
-    name: 'Multi-warehouse',
-    line: 'Stock per product, per warehouse, per bin. Transfers with an in-transit state.',
+    icon: 'warehouses',
+    name: 'Warehouses',
+    line: 'Live counts in every location, down to the bin.',
   },
   {
-    n: '02',
+    icon: 'ledger',
     name: 'Movements ledger',
-    line: 'Every change is a timestamped entry with an author. Nothing edits history.',
+    line: 'Each change logged with who, when and why.',
   },
   {
-    n: '03',
+    icon: 'transfers',
+    name: 'Transfers',
+    line: 'Warehouse to warehouse, with an in-transit state.',
+  },
+  {
+    icon: 'purchasing',
     name: 'Purchase orders',
-    line: 'Draft, send, receive. Partial deliveries land without spreadsheet math.',
+    line: 'Order, receive, reconcile. Partial deliveries covered.',
   },
   {
-    n: '04',
+    icon: 'sales',
+    name: 'Sales orders',
+    line: 'Pick, pack and ship, stock updated at each step.',
+  },
+  {
+    icon: 'expiry',
+    name: 'Batch and expiry',
+    line: 'Lot numbers and dates, oldest stock leaves first.',
+  },
+  {
+    icon: 'counts',
+    name: 'Stock counts',
+    line: 'Count sessions with variance review before anything changes.',
+  },
+  {
+    icon: 'alerts',
     name: 'Reorder alerts',
-    line: 'Set a reorder point per product per warehouse. Omnes flags the shelf before it empties.',
+    line: 'Set a floor per product. Get told before you hit it.',
+  },
+  {
+    icon: 'reports',
+    name: 'Reports',
+    line: 'Stock value, movement history, sales against purchases.',
+  },
+  {
+    icon: 'barcode',
+    name: 'Barcode labels',
+    line: 'Generate, print and scan your own labels.',
+  },
+  {
+    icon: 'team',
+    name: 'Team roles',
+    line: 'Owner to floor staff, each sees only their part.',
+  },
+  {
+    icon: 'data',
+    name: 'Import and export',
+    line: 'Catalog in from CSV, your data out anytime.',
   },
 ];
 
@@ -33,15 +74,18 @@ export default function Features() {
             Built for the daily grind.
           </h2>
         </Reveal>
-        <div className="rule mt-14 border-t">
+        <div className="rule mt-14 grid border-l border-t sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
-            <Reveal key={f.n} delay={i * 0.08}>
-              <div className="rule group grid gap-2 border-b py-7 transition-colors hover:bg-raised/50 md:grid-cols-[80px_240px_1fr] md:items-baseline md:gap-6 md:px-4">
-                <span className="font-mono text-xs text-bone/30">{f.n}</span>
-                <h3 className="font-display text-2xl font-medium uppercase tracking-wide text-bone transition-colors group-hover:text-teal">
+            <Reveal key={f.name} delay={(i % 3) * 0.08}>
+              <div className="rule group h-full border-b border-r p-6 transition-colors duration-300 hover:bg-raised/60">
+                <DrawnIcon
+                  name={f.icon}
+                  className="h-6 w-6 text-teal transition-colors duration-300 group-hover:text-green"
+                />
+                <h3 className="mt-5 font-display text-xl font-medium uppercase tracking-wide text-bone">
                   {f.name}
                 </h3>
-                <p className="text-bone/60">{f.line}</p>
+                <p className="mt-2 text-sm leading-relaxed text-bone/55">{f.line}</p>
               </div>
             </Reveal>
           ))}
