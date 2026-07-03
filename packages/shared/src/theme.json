@@ -1,0 +1,17 @@
+{
+  "source": "logo.png",
+  "colors": {
+    "primary": "#2663c0",
+    "secondary": "#2aaeb7",
+    "accent": "#56c9a3",
+    "neutralDark": "#0c0c18",
+    "neutralDarkRaised": "#131325",
+    "neutralLight": "#f6f5f4"
+  },
+  "onDark": {
+    "text": "#f6f5f4",
+    "primary": "#3c7ad8",
+    "secondary": "#2aaeb7",
+    "accent": "#56c9a3"
+  }
+}
