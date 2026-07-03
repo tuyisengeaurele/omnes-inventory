@@ -1,12 +1,12 @@
 import Reveal from './Reveal';
-
-const REPO = 'https://github.com/tuyisengeaurele/omnes-inventory';
+import { SIGNUP_URL } from '../lib/links';
 
 const TIERS = [
   {
     name: 'Starter',
     price: '0',
     per: 'free while you fit',
+    cta: 'Start free',
     items: ['1 warehouse', '500 products', '2 team members', 'Movements ledger'],
     highlight: false,
   },
@@ -14,6 +14,7 @@ const TIERS = [
     name: 'Growth',
     price: '29',
     per: 'per month',
+    cta: 'Start Growth',
     items: ['5 warehouses', '10,000 products', '10 team members', 'Purchase orders', 'CSV import and export'],
     highlight: true,
   },
@@ -21,6 +22,7 @@ const TIERS = [
     name: 'Scale',
     price: '79',
     per: 'per month',
+    cta: 'Start Scale',
     items: ['Unlimited warehouses', 'Unlimited products', 'Unlimited team', 'Batch and expiry tracking', 'Full audit log'],
     highlight: false,
   },
@@ -36,8 +38,8 @@ export default function Pricing() {
             Priced by shelf, not by seat squeeze.
           </h2>
           <p className="mt-4 max-w-md text-bone/60">
-            The app is still in development, so these tiers are a preview. Numbers may move
-            before launch.
+            Start free with one warehouse. Upgrade when the operation grows, not when the
+            invoice says so.
           </p>
         </Reveal>
         <div className="mt-14 grid gap-5 md:grid-cols-3">
@@ -67,21 +69,24 @@ export default function Pricing() {
                   ))}
                 </ul>
                 <a
-                  href={REPO}
-                  target="_blank"
-                  rel="noreferrer"
+                  href={SIGNUP_URL}
                   className={`mt-8 block rounded px-4 py-2.5 text-center text-sm font-medium transition-all ${
                     t.highlight
                       ? 'bg-blue text-bone hover:brightness-110'
                       : 'rule border text-bone/70 hover:border-bone/30 hover:text-bone'
                   }`}
                 >
-                  Follow the build
+                  {t.cta}
                 </a>
               </div>
             </Reveal>
           ))}
         </div>
+        <Reveal>
+          <p className="mt-8 font-mono text-xs text-bone/40">
+            Every plan keeps the full movements ledger. Your history is never behind a paywall.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
