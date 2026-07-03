@@ -10,6 +10,8 @@
   "scripts": {
     "dev": "concurrently -n api,web \"npm:dev --workspace=apps/api\" \"npm:dev --workspace=apps/web\"",
     "dev:marketing": "npm run dev --workspace=apps/marketing",
+    "db:migrate": "dotenv -e .env -- npm run db:migrate --workspace=apps/api",
+    "db:seed": "dotenv -e .env -- npm run db:seed --workspace=apps/api",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "concurrently": "^9.0.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.9.0",
     "prettier": "^3.3.3",
     "sharp": "^0.35.3",
