@@ -1,7 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import FlowBoard from './FlowBoard';
-
-const REPO = 'https://github.com/tuyisengeaurele/omnes-inventory';
+import { SIGNUP_URL } from '../lib/links';
 
 export default function Hero({ ready }: { ready: boolean }) {
   const reduce = useReducedMotion();
@@ -47,18 +46,16 @@ export default function Hero({ ready }: { ready: boolean }) {
             </motion.p>
             <motion.div {...enter(0.42)} className="mt-9 flex items-center gap-5">
               <a
-                href="#pricing"
+                href={SIGNUP_URL}
                 className="rounded bg-blue px-6 py-3 font-medium text-bone transition-all hover:brightness-110 active:scale-[0.98]"
               >
                 Start free
               </a>
               <a
-                href={REPO}
-                target="_blank"
-                rel="noreferrer"
+                href="#product"
                 className="text-sm text-bone/50 underline-offset-4 transition-colors hover:text-bone hover:underline"
               >
-                View the repo
+                See it work
               </a>
             </motion.div>
           </div>

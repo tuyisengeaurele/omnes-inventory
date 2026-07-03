@@ -25,7 +25,7 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <section className="py-24 md:py-32">
+    <section id="capabilities" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="microlabel mb-4">03 / Capabilities</p>

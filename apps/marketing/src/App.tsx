@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import ProductInAction from './components/ProductInAction';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
+import ClosingCta from './components/ClosingCta';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <ProductInAction />
         <Features />
         <Pricing />
+        <ClosingCta />
       </main>
       <Footer />
     </>

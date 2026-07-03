@@ -101,13 +101,6 @@ export default function ProductInAction() {
             </div>
           </Reveal>
         </div>
-
-        <Reveal className="mt-20 md:mt-24">
-          <p className="max-w-md text-bone/60">
-            These are the screens we are building right now. The repo is public, watch the app
-            take shape commit by commit.
-          </p>
-        </Reveal>
       </div>
     </section>
   );

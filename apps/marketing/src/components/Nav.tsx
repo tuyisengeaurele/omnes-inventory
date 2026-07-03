@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-
-const REPO = 'https://github.com/tuyisengeaurele/omnes-inventory';
+import { LOGIN_URL, SIGNUP_URL } from '../lib/links';
 
 export default function Nav({ ready }: { ready: boolean }) {
   return (
@@ -28,21 +27,25 @@ export default function Nav({ ready }: { ready: boolean }) {
             Product
           </a>
           <a
+            href="#capabilities"
+            className="hidden text-sm text-bone/60 transition-colors hover:text-bone sm:block"
+          >
+            Capabilities
+          </a>
+          <a
             href="#pricing"
             className="hidden text-sm text-bone/60 transition-colors hover:text-bone sm:block"
           >
             Pricing
           </a>
           <a
-            href={REPO}
-            target="_blank"
-            rel="noreferrer"
+            href={LOGIN_URL}
             className="hidden text-sm text-bone/60 transition-colors hover:text-bone sm:block"
           >
-            GitHub
+            Sign in
           </a>
           <a
-            href="#pricing"
+            href={SIGNUP_URL}
             className="rounded bg-blue px-4 py-1.5 text-sm font-medium text-bone transition-all hover:brightness-110 active:scale-[0.98]"
           >
             Start free
