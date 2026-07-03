@@ -171,11 +171,12 @@ async function main() {
       ? families[2].color
       : hslToRgb({ ...rgbToHsl(secondary), l: Math.min(0.7, rgbToHsl(secondary).l + 0.15) });
 
-  // backgrounds: keep the hue of the dark wordmark but push it to app-shell depths
+  // backgrounds: keep a trace of the wordmark hue but clamp saturation hard,
+  // anything above ~0.12 at this darkness reads violet instead of black
   const darkBase = rgbToHsl(avg(darks, { r: 22, g: 34, b: 54 }));
   const lightBase = rgbToHsl(avg(lights, { r: 245, g: 240, b: 232 }));
-  const neutralDark = hslToRgb({ h: darkBase.h, s: Math.min(darkBase.s, 0.45), l: 0.07 });
-  const neutralDarkRaised = hslToRgb({ h: darkBase.h, s: Math.min(darkBase.s, 0.4), l: 0.11 });
+  const neutralDark = hslToRgb({ h: darkBase.h, s: Math.min(darkBase.s, 0.12), l: 0.06 });
+  const neutralDarkRaised = hslToRgb({ h: darkBase.h, s: Math.min(darkBase.s, 0.1), l: 0.1 });
   const neutralLight = hslToRgb({ h: lightBase.h, s: Math.min(lightBase.s, 0.3), l: 0.96 });
 
   console.log('extracted from logo.png:');

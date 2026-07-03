@@ -8,8 +8,8 @@ Extracted from logo.png by scripts/extract-theme.ts, not picked by hand:
 
 | Name    | Hex       | Use                                        |
 | ------- | --------- | ------------------------------------------ |
-| ink     | `#0c0c18` | page background                            |
-| raised  | `#131325` | cards, panels, the board                   |
+| ink     | `#0d0d11` | page background                            |
+| raised  | `#17171c` | cards, panels, the board                   |
 | bone    | `#f6f5f4` | headings and body text                     |
 | blue    | `#3c7ad8` | primary actions, links (AA safe on ink)    |
 | teal    | `#2aaeb7` | secondary highlights, in-transit states    |
