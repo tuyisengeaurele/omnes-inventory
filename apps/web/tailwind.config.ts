@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config, PluginAPI } from 'tailwindcss/types/config';
 import theme from '../../packages/shared/src/theme.json';
 
 // same palette source as the marketing site, exposed as css variables so a
@@ -30,7 +30,7 @@ export default {
     },
   },
   plugins: [
-    function themeVariables({ addBase }: { addBase: (base: Record<string, unknown>) => void }) {
+    function themeVariables({ addBase }: PluginAPI) {
       addBase({
         ':root': {
           '--color-ink': channels(theme.colors.neutralDark),
