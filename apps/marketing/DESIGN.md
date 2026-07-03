@@ -51,5 +51,5 @@ Motion budget:
 ## Sections
 
 nav, hero with board, product in action (real DOM mockups of the app screens),
-features (four short items), pricing (three placeholder tiers), footer with the
-GitHub link.
+features (four short items), pricing (three tiers), a closing call to action,
+and a footer with product links and contact info.
