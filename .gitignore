@@ -15,6 +15,7 @@ Thumbs.db
 
 .vscode/
 .idea/
+.claude/
 
 apps/api/uploads/
 *.tsbuildinfo
