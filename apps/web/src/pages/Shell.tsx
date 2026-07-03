@@ -1,12 +1,6 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
-
-const NAV = [
-  { to: '/app', label: 'Dashboard', end: true },
-  { to: '/app/products', label: 'Products' },
-  { to: '/app/stock', label: 'Stock' },
-  { to: '/app/orders', label: 'Orders' },
-  { to: '/app/settings', label: 'Settings' },
-];
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
+import Team from './Team';
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -20,6 +14,23 @@ function Placeholder({ title }: { title: string }) {
 }
 
 export default function Shell() {
+  const { session, allowed, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const nav = [
+    { to: '/app', label: 'Dashboard', end: true },
+    { to: '/app/products', label: 'Products' },
+    { to: '/app/stock', label: 'Stock' },
+    { to: '/app/orders', label: 'Orders' },
+    ...(allowed('team:read') ? [{ to: '/app/team', label: 'Team' }] : []),
+    { to: '/app/settings', label: 'Settings' },
+  ];
+
+  async function signOut() {
+    await logout();
+    navigate('/login');
+  }
+
   return (
     <div className="flex min-h-screen">
       <aside className="rule hidden w-56 flex-col border-r bg-raised/40 md:flex">
@@ -28,7 +39,7 @@ export default function Shell() {
           <span className="font-display text-lg font-semibold tracking-wide">omnes</span>
         </div>
         <nav className="flex-1 space-y-1 p-3">
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -45,9 +56,22 @@ export default function Shell() {
         </nav>
       </aside>
       <div className="flex-1">
-        <header className="rule flex items-center justify-between border-b px-5 py-3.5">
-          <span className="microlabel">Workspace</span>
-          <span className="h-8 w-8 rounded-full bg-raised" />
+        <header className="rule flex items-center justify-between border-b px-5 py-3">
+          <span className="microlabel">{session?.tenant.name}</span>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <div className="text-sm leading-tight text-bone/80">{session?.user.fullName}</div>
+              <div className="font-mono text-[10px] uppercase tracking-wider text-bone/40">
+                {session?.user.role}
+              </div>
+            </div>
+            <button
+              onClick={signOut}
+              className="rule rounded border px-3 py-1.5 text-xs text-bone/60 transition-colors hover:border-bone/30 hover:text-bone"
+            >
+              Sign out
+            </button>
+          </div>
         </header>
         <main className="p-5 md:p-8">
           <Routes>
@@ -55,6 +79,7 @@ export default function Shell() {
             <Route path="products" element={<Placeholder title="Products" />} />
             <Route path="stock" element={<Placeholder title="Stock" />} />
             <Route path="orders" element={<Placeholder title="Orders" />} />
+            <Route path="team" element={<Team />} />
             <Route path="settings" element={<Placeholder title="Settings" />} />
           </Routes>
         </main>
