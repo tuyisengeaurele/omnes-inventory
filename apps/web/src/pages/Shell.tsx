@@ -1,6 +1,11 @@
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import Team from './Team';
+import Products from './catalog/Products';
+import ProductForm from './catalog/ProductForm';
+import Categories from './catalog/Categories';
+import ImportProducts from './catalog/ImportProducts';
+import Labels from './catalog/Labels';
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -76,7 +81,12 @@ export default function Shell() {
         <main className="p-5 md:p-8">
           <Routes>
             <Route index element={<Placeholder title="Dashboard" />} />
-            <Route path="products" element={<Placeholder title="Products" />} />
+            <Route path="products" element={<Products />} />
+            <Route path="products/new" element={<ProductForm />} />
+            <Route path="products/categories" element={<Categories />} />
+            <Route path="products/import" element={<ImportProducts />} />
+            <Route path="products/:id" element={<ProductForm />} />
+            <Route path="products/:id/labels" element={<Labels />} />
             <Route path="stock" element={<Placeholder title="Stock" />} />
             <Route path="orders" element={<Placeholder title="Orders" />} />
             <Route path="team" element={<Team />} />

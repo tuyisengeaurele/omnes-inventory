@@ -57,6 +57,45 @@ export async function api<T = unknown>(path: string, opts: Options = {}, retry =
   return body as T;
 }
 
+// multipart requests share the same auth and retry behavior as json ones
+export async function apiUpload<T = unknown>(path: string, form: FormData, retry = true): Promise<T> {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: 'POST',
+    headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+    body: form,
+    credentials: 'include',
+  });
+  if (res.status === 401 && retry) {
+    const refreshed = await refreshSession();
+    if (refreshed) return apiUpload<T>(path, form, false);
+  }
+  const body = await res.json().catch(() => null);
+  if (!res.ok) {
+    throw new ApiError(res.status, (body as { error?: string })?.error ?? 'request failed', body);
+  }
+  return body as T;
+}
+
+// fetch a file behind auth and hand it to the browser as a download
+export async function apiDownload(path: string, fileName: string): Promise<void> {
+  const res = await fetch(`${API_URL}${path}`, {
+    headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+    credentials: 'include',
+  });
+  if (!res.ok) throw new ApiError(res.status, 'download failed', null);
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function uploadUrl(fileName: string): string {
+  return `${API_URL}/uploads/${fileName}`;
+}
+
 type SessionResponse = Session & { accessToken: string };
 
 function adopt(body: SessionResponse): Session {
