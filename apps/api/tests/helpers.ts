@@ -4,6 +4,10 @@ import { prisma } from '../src/db.js';
 
 export async function resetDb() {
   // FK order matters, children first
+  await prisma.productImage.deleteMany();
+  await prisma.productVariant.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
   await prisma.refreshToken.deleteMany();
   await prisma.passwordReset.deleteMany();
   await prisma.invite.deleteMany();
