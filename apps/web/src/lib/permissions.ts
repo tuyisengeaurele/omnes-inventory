@@ -5,6 +5,8 @@ import type { SessionUser } from './api';
 const PERMISSIONS = {
   'team:read': ['OWNER', 'ADMIN', 'MANAGER'],
   'team:manage': ['OWNER', 'ADMIN'],
+  'catalog:read': ['OWNER', 'ADMIN', 'MANAGER', 'STAFF'],
+  'catalog:manage': ['OWNER', 'ADMIN', 'MANAGER'],
 } as const;
 
 export type Permission = keyof typeof PERMISSIONS;

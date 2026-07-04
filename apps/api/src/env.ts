@@ -32,6 +32,7 @@ export const env = {
   accessTtlSeconds: ttlSeconds(process.env.JWT_ACCESS_TTL ?? '15m'),
   refreshTtlSeconds: ttlSeconds(process.env.JWT_REFRESH_TTL ?? '7d'),
   webUrl: process.env.VITE_APP_URL ?? 'http://localhost:5173',
+  uploadDir: path.resolve(process.env.UPLOAD_DIR ?? './uploads'),
   mail: {
     transport: process.env.SMTP_TRANSPORT ?? 'console',
     host: process.env.SMTP_HOST ?? 'localhost',

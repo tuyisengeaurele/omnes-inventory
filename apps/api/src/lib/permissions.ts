@@ -5,6 +5,8 @@ import type { Role } from '@prisma/client';
 export const PERMISSIONS = {
   'team:read': ['OWNER', 'ADMIN', 'MANAGER'],
   'team:manage': ['OWNER', 'ADMIN'],
+  'catalog:read': ['OWNER', 'ADMIN', 'MANAGER', 'STAFF'],
+  'catalog:manage': ['OWNER', 'ADMIN', 'MANAGER'],
 } as const satisfies Record<string, readonly Role[]>;
 
 export type Permission = keyof typeof PERMISSIONS;

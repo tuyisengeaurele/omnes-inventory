@@ -26,3 +26,32 @@ body {
     @apply font-mono text-[11px] uppercase tracking-[0.2em] text-bone/40;
   }
 }
+
+/* label printing: white paper, black bars, nothing but the sheet */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #label-sheet,
+  #label-sheet * {
+    visibility: visible;
+  }
+  #label-sheet {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
+  #label-sheet .rule {
+    border-color: #ddd;
+  }
+  #label-sheet span {
+    color: #000;
+  }
+  .barcode-svg {
+    filter: invert(1);
+  }
+}
