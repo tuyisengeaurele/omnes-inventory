@@ -1,5 +1,5 @@
-// Phase 0 skeleton: tenancy and users only.
-// Catalog, stock and the rest arrive with their own phases.
+// Tenancy and users came with phase 1, the catalog with phase 2.
+// Stock and the rest arrive with their own phases.
 
 generator client {
   provider = "prisma-client-js"
@@ -23,8 +23,12 @@ model Tenant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users   User[]
-  invites Invite[]
+  users      User[]
+  invites    Invite[]
+  categories Category[]
+  products   Product[]
+  variants   ProductVariant[]
+  images     ProductImage[]
 }
 
 model User {
@@ -78,6 +82,82 @@ model Invite {
   invitedBy User   @relation("InvitedBy", fields: [invitedById], references: [id], onDelete: Cascade)
 
   @@index([tenantId])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  parentId  String?
+  createdAt DateTime @default(now())
+
+  tenant   Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children Category[] @relation("CategoryTree")
+  products Product[]
+
+  @@index([tenantId])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  tenantId    String
+  sku         String
+  name        String
+  description String   @default("")
+  unit        String   @default("unit")
+  costPrice   Decimal  @default(0) @db.Decimal(12, 2)
+  sellPrice   Decimal  @default(0) @db.Decimal(12, 2)
+  taxClass    String   @default("standard")
+  barcode     String?
+  tags        String[] @default([])
+  categoryId  String?
+  isArchived  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant   Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  variants ProductVariant[]
+  images   ProductImage[]
+
+  @@unique([tenantId, sku])
+  @@index([tenantId, isArchived])
+}
+
+// every product gets at least a default variant. Stock always hangs off a
+// variant, so the ledger has one shape no matter how simple the product is
+model ProductVariant {
+  id         String   @id @default(cuid())
+  tenantId   String
+  productId  String
+  name       String   @default("Default")
+  attributes Json     @default("{}")
+  sku        String
+  barcode    String?
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, sku])
+  @@index([productId])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  tenantId  String
+  productId String
+  fileName  String
+  position  Int      @default(0)
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
 }
 
 model PasswordReset {
